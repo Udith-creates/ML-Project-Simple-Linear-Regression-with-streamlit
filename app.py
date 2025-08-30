@@ -5,8 +5,16 @@ import numpy as np
 import pickle
 
 # Load model and scaler
-model = pickle.load(open('finalmodel.pkl', 'rb'))
-scaler = pickle.load(open('scaler.pkl', 'rb'))
+import os
+
+if os.path.exists('finalmodel.pkl') and os.path.exists('scaler.pkl'):
+    with open('finalmodel.pkl', 'rb') as f:
+        model = pickle.load(f)
+    with open('scaler.pkl', 'rb') as f:
+        scaler = pickle.load(f)
+else:
+    st.error("Model or scaler file not found. Please ensure 'finalmodel.pkl' and 'scaler.pkl' are in the app directory.")
+    st.stop()
 
 st.title("📚 Student Performance Predictor")
 st.write("Enter the student's details below to predict their Performance Index:")
